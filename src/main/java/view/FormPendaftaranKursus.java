@@ -240,6 +240,11 @@ private String formatRupiah(double nilai) {
         lblInfoKode.setOpaque(true);
 
         txtKodeAkses.setText("jPasswordField1");
+        txtKodeAkses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKodeAksesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -515,6 +520,10 @@ private String formatRupiah(double nilai) {
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void txtKodeAksesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeAksesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKodeAksesActionPerformed
 
     /**
      * @param args the command line arguments
