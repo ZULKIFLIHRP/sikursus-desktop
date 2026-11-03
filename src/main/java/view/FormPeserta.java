@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
  */
 public class FormPeserta extends javax.swing.JFrame {
 private javax.swing.ButtonGroup grupJenisKelamin;
+// Menyimpan ID peserta yang sedang dipilih
+private int idPeserta = 0;
     /**
      * Creates new form FormPeserta
      */
@@ -20,13 +22,13 @@ public FormPeserta() {
     initComponents();
     setLocationRelativeTo(null);
     setResizable(false);
-
     grupJenisKelamin = new javax.swing.ButtonGroup();
 
     grupJenisKelamin.add(rbLaki);
     grupJenisKelamin.add(rbPerempuan);
 
     // Mengambil data dari database saat form dibuka
+    tampilkanDataPeserta();
 }
 private void resetForm() {
     // Mengosongkan seluruh input
@@ -98,6 +100,9 @@ private void tampilkanDataPeserta() {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtCari = new javax.swing.JTextField();
+        btnCari = new javax.swing.JButton();
 
         btnSimpan3.setText("Simpan");
         btnSimpan3.addActionListener(new java.awt.event.ActionListener() {
@@ -228,9 +233,24 @@ private void tampilkanDataPeserta() {
                 "ID", "NIM", "Nama", "JK", "Prodi", "No. Hp", "Email"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
+        jLabel12.setForeground(new java.awt.Color(0, 102, 255));
         jLabel12.setText("Data Peserta");
+
+        jLabel13.setText("Pencarian");
+
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,9 +258,16 @@ private void tampilkanDataPeserta() {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addGap(131, 131, 131)
+                        .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +287,9 @@ private void tampilkanDataPeserta() {
                                     .addComponent(rbLaki, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnSimpan)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(btnSimpan))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSimpan1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -273,14 +302,8 @@ private void tampilkanDataPeserta() {
                                 .addGap(6, 6, 6)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSimpan2))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel12)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                                .addComponent(btnSimpan2)))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,7 +343,12 @@ private void tampilkanDataPeserta() {
                     .addComponent(btnSimpan4))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCari))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -454,11 +482,114 @@ int konfirmasi = JOptionPane.showConfirmDialog(
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnSimpan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpan1ActionPerformed
-        // TODO add your handling code here:
+     // Memastikan data peserta sudah dipilih dari tabel
+    if (idPeserta == 0) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Pilih data peserta pada tabel terlebih dahulu!",
+            "Peringatan",
+            JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    String nim = txtNIM.getText().trim();
+    String nama = txtNama.getText().trim();
+    String prodi = txtProdi.getText().trim();
+    String noHp = txtNoHp.getText().trim();
+    String email = txtEmail.getText().trim();
+
+    String jenisKelamin = "";
+
+    if (rbLaki.isSelected()) {
+        jenisKelamin = "L";
+    } else if (rbPerempuan.isSelected()) {
+        jenisKelamin = "P";
+    }
+
+    // Validasi input
+    if (nim.isEmpty() || nama.isEmpty() || prodi.isEmpty()
+            || jenisKelamin.isEmpty()) {
+
+        JOptionPane.showMessageDialog(
+            this,
+            "NIM, Nama, Prodi, dan Jenis Kelamin wajib diisi!",
+            "Peringatan",
+            JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    try {
+        model.Peserta peserta = new model.Peserta(
+            nim, nama, jenisKelamin, prodi, noHp, email
+        );
+
+        PesertaDao dao = new PesertaDao();
+
+        boolean berhasil = dao.update(idPeserta, peserta);
+
+        if (berhasil) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Data peserta berhasil diubah!",
+                "Sukses",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+
+            tampilkanDataPeserta();
+        } else {
+            JOptionPane.showMessageDialog(
+                this,
+                "Data peserta gagal diubah!",
+                "Informasi",
+                JOptionPane.WARNING_MESSAGE
+            );
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Gagal mengubah data peserta: " + e.getMessage(),
+            "Error Database",
+            JOptionPane.ERROR_MESSAGE
+        );
+    }        // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpan1ActionPerformed
 
     private void btnSimpan2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpan2ActionPerformed
-        // TODO add your handling code here:
+    // Memastikan tabel memiliki data
+    if (jTable1.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Tidak ada data peserta yang dapat dicetak!",
+            "Peringatan",
+            JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    try {
+        // Menampilkan dialog pengaturan cetak
+        boolean selesai = jTable1.print();
+
+        if (selesai) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Data peserta berhasil dicetak!",
+                "Sukses",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        }
+
+    } catch (java.awt.print.PrinterException e) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Gagal mencetak data peserta: " + e.getMessage(),
+            "Error Cetak",
+            JOptionPane.ERROR_MESSAGE
+        );
+    }        // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpan2ActionPerformed
 
     private void btnSimpan3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpan3ActionPerformed
@@ -466,8 +597,157 @@ int konfirmasi = JOptionPane.showConfirmDialog(
     }//GEN-LAST:event_btnSimpan3ActionPerformed
 
     private void btnSimpan4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpan4ActionPerformed
-        // TODO add your handling code here:
+    // Memastikan data sudah dipilih
+    if (idPeserta == 0) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Pilih data peserta pada tabel terlebih dahulu!",
+            "Peringatan",
+            JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    // Konfirmasi penghapusan
+    int konfirmasi = JOptionPane.showConfirmDialog(
+        this,
+        "Apakah Anda yakin ingin menghapus data peserta ini?",
+        "Konfirmasi Hapus",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (konfirmasi == JOptionPane.YES_OPTION) {
+        try {
+            PesertaDao dao = new PesertaDao();
+
+            boolean berhasil = dao.delete(idPeserta);
+
+            if (berhasil) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Data peserta berhasil dihapus!",
+                    "Sukses",
+                    JOptionPane.INFORMATION_MESSAGE
+                );
+
+                // Mengosongkan form setelah penghapusan
+                resetForm();
+                idPeserta = 0;
+                tampilkanDataPeserta();
+
+            } else {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Data peserta gagal dihapus!",
+                    "Informasi",
+                    JOptionPane.WARNING_MESSAGE
+                );
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Gagal menghapus data peserta: " + e.getMessage(),
+                "Error Database",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }        // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpan4ActionPerformed
+
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+    // Mengambil kata kunci pencarian
+    String keyword = txtCari.getText().trim();
+
+    // Validasi pencarian
+    if (keyword.isEmpty()) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Masukkan Nama atau NIM yang ingin dicari!",
+            "Peringatan",
+            JOptionPane.WARNING_MESSAGE
+        );
+
+        txtCari.requestFocusInWindow();
+        return;
+    }
+
+    // Melakukan pencarian data
+    try {
+
+        PesertaDao dao = new PesertaDao();
+
+        javax.swing.table.DefaultTableModel model =
+                dao.search(keyword);
+
+        jTable1.setModel(model);
+
+        // Memeriksa hasil pencarian
+        if (model.getRowCount() == 0) {
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Data peserta tidak ditemukan!",
+                "Informasi",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+
+        }
+
+    } catch (SQLException e) {
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Gagal mencari data peserta: " + e.getMessage(),
+            "Error Database",
+            JOptionPane.ERROR_MESSAGE
+        );
+
+    }
+    }//GEN-LAST:event_btnCariActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    // Mengambil baris yang dipilih
+    int baris = jTable1.getSelectedRow();
+
+    if (baris != -1) {
+
+        // Mengambil ID peserta
+        idPeserta = Integer.parseInt(
+            jTable1.getValueAt(baris, 0).toString()
+        );
+
+        // Memasukkan data tabel ke form
+        txtNIM.setText(
+            jTable1.getValueAt(baris, 1).toString()
+        );
+
+        txtNama.setText(
+            jTable1.getValueAt(baris, 2).toString()
+        );
+
+        String jenisKelamin =
+            jTable1.getValueAt(baris, 3).toString();
+
+        if (jenisKelamin.equals("L")) {
+            rbLaki.setSelected(true);
+        } else if (jenisKelamin.equals("P")) {
+            rbPerempuan.setSelected(true);
+        }
+
+        txtProdi.setText(
+            jTable1.getValueAt(baris, 4).toString()
+        );
+
+        txtNoHp.setText(
+            jTable1.getValueAt(baris, 5).toString()
+        );
+
+        txtEmail.setText(
+            jTable1.getValueAt(baris, 6).toString()
+        );
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
 
     
     /**
@@ -506,6 +786,7 @@ int konfirmasi = JOptionPane.showConfirmDialog(
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCari;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnSimpan1;
     private javax.swing.JButton btnSimpan2;
@@ -514,6 +795,7 @@ int konfirmasi = JOptionPane.showConfirmDialog(
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -525,6 +807,7 @@ int konfirmasi = JOptionPane.showConfirmDialog(
     private javax.swing.JTable jTable1;
     private javax.swing.JRadioButton rbLaki;
     private javax.swing.JRadioButton rbPerempuan;
+    private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNIM;
     private javax.swing.JTextField txtNama;
