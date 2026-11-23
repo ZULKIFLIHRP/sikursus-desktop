@@ -1,0 +1,64 @@
+CATATAN PENGUJIAN PRAKTIKUM PBO - PERTEMUAN 11
+Topik   : Menu, Navigasi, Login, dan Integrasi Modul
+Project : SIKURSUS Desktop (Java Swing + MySQL)
+Nama    : Zulkifli
+NIM     : 2924039
+Tanggal : 23 November 2026
+
+======================================================================
+RINGKASAN HASIL PENGUJIAN SKENARIO (T01 - T12)
+======================================================================
+
+[OK] T01 - Username dan password kosong
+     Hasil : Muncul pesan peringatan "Username dan password wajib diisi."
+             dan aplikasi tetap berada di LoginFrame.
+
+[OK] T02 - Username benar, password salah
+     Hasil : Muncul pesan "Login gagal. Periksa username, password, atau
+             status user.", field password otomatis dikosongkan dan fokus
+             kembali ke pwdPassword.
+
+[OK] T03 - Login akun ADMIN (admin / Admin@123)
+     Hasil : LoginFrame tertutup (dispose), DashboardFrame terbuka dengan
+             status akun admin (ADMIN), seluruh menu Master (Peserta,
+             Instruktur, Kursus, Kelas), Transaksi, dan Laporan aktif.
+
+[OK] T04 - Login akun OPERATOR (operator / Operator@123)
+     Hasil : DashboardFrame terbuka dengan status akun operator (OPERATOR),
+             modul Data Peserta, Transaksi, dan Laporan aktif, sedangkan
+             Data Instruktur, Data Kursus, dan Data Kelas terkunci/nonaktif.
+
+[OK] T05 - Klik menu/tombol Peserta 5 kali berturut-turut
+     Hasil : WindowManager menjaga hanya 1 instance FormPeserta yang aktif
+             dan membawa jendela yang sama ke depan tanpa membuka ganda.
+
+[OK] T06 - Tutup FormPeserta dengan tombol X
+     Hasil : FormPeserta tertutup (DISPOSE_ON_CLOSE) dan DashboardFrame
+             tetap berjalan normal.
+
+[OK] T07 - Buka menu Peserta lagi setelah FormPeserta ditutup
+     Hasil : WindowManager membuat instance FormPeserta baru dan
+             menampilkannya kembali tanpa error.
+
+[OK] T08 - Buka Kursus, Instruktur, dan Kelas sebagai ADMIN
+     Hasil : KursusFrame, InstrukturFrame, dan KelasFrame terbuka dengan
+             lancar sementara DashboardFrame tetap aktif.
+
+[OK] T09 - Logout ketika form child masih terbuka
+     Hasil : Muncul konfirmasi logout; setelah dipilih Yes,
+             WindowManager.closeAll() menutup semua form child,
+             UserSession.clear() menghapus sesi, DashboardFrame ditutup,
+             dan aplikasi kembali ke LoginFrame.
+
+[OK] T10 - Matikan service MySQL lalu coba login
+     Hasil : Muncul dialog "Database Error: Tidak dapat mengakses database"
+             secara rapi tanpa menyebabkan aplikasi crash.
+
+[OK] T11 - Pindahkan folder project ke lokasi lain
+     Hasil : Icon menu Master tetap tampil dengan baik karena dimuat dari
+             classpath resource (getClass().getResource()) tanpa path
+             absolut komputer pribadi.
+
+[OK] T12 - Pilih menu Tutup Aplikasi / tombol Tutup Aplikasi
+     Hasil : Muncul dialog konfirmasi; memilih Yes menghentikan seluruh
+             aplikasi melalui System.exit(0).
