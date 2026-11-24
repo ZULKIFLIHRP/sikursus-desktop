@@ -366,7 +366,7 @@ public class DashboardFrame extends JFrame {
     }
 
     private void openPeserta() {
-        WindowManager.open(FormPeserta.class, FormPeserta::new);
+        WindowManager.open(PesertaFrame.class, PesertaFrame::new);
     }
 
     private void openInstruktur() {
