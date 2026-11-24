@@ -1,0 +1,32 @@
+// 1) Key dimensi harus unik: Baris = Distinct (dan Transaction_ID pada Fact Sales unik)
+EVALUATE
+UNION(
+  ROW("Tabel", "Dim Branch",   "Baris", COUNTROWS('Dim Branch'),   "Distinct", DISTINCTCOUNT('Dim Branch'[Branch_ID])),
+  ROW("Tabel", "Dim Customer", "Baris", COUNTROWS('Dim Customer'), "Distinct", DISTINCTCOUNT('Dim Customer'[Customer_ID])),
+  ROW("Tabel", "Dim Product",  "Baris", COUNTROWS('Dim Product'),  "Distinct", DISTINCTCOUNT('Dim Product'[Product_ID])),
+  ROW("Tabel", "Dim Date",     "Baris", COUNTROWS('Dim Date'),     "Distinct", DISTINCTCOUNT('Dim Date'[Date_Key])),
+  ROW("Tabel", "Fact Sales (Transaction_ID)", "Baris", COUNTROWS('Fact Sales'), "Distinct", DISTINCTCOUNT('Fact Sales'[Transaction_ID]))
+)
+
+// 2) Orphan key (fakta tanpa pasangan di dimensi): semua harus 0
+EVALUATE
+ROW(
+  "Sales_Branch",   COUNTROWS(FILTER('Fact Sales',      ISBLANK(RELATED('Dim Branch'[Branch_ID])))),
+  "Sales_Customer", COUNTROWS(FILTER('Fact Sales',      ISBLANK(RELATED('Dim Customer'[Customer_ID])))),
+  "Sales_Date",     COUNTROWS(FILTER('Fact Sales',      ISBLANK(RELATED('Dim Date'[Date_Key])))),
+  "Sales_Product",  COUNTROWS(FILTER('Fact Sales',      ISBLANK(RELATED('Dim Product'[Product_ID])))),
+  "Target_Branch",  COUNTROWS(FILTER('Fact Target',     ISBLANK(RELATED('Dim Branch'[Branch_ID])))),
+  "Target_Month",   COUNTROWS(FILTER('Fact Target',     ISBLANK(RELATED('Dim Date'[Date_Key])))),
+  "Ops_Branch",     COUNTROWS(FILTER('Fact Operations', ISBLANK(RELATED('Dim Branch'[Branch_ID])))),
+  "Ops_Month",      COUNTROWS(FILTER('Fact Operations', ISBLANK(RELATED('Dim Date'[Date_Key]))))
+)
+
+// 3) Telusuri baris orphan pada Fact Sales (termasuk Sales_Date dan Sales_Product)
+EVALUATE
+FILTER(
+  'Fact Sales',
+  ISBLANK(RELATED('Dim Branch'[Branch_ID]))
+    || ISBLANK(RELATED('Dim Customer'[Customer_ID]))
+    || ISBLANK(RELATED('Dim Date'[Date_Key]))
+    || ISBLANK(RELATED('Dim Product'[Product_ID]))
+)

@@ -95,7 +95,7 @@ private void tampilkanDataPeserta() {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         btnSimpan1 = new javax.swing.JButton();
-        btnSimpan2 = new javax.swing.JButton();
+        btnCetak = new javax.swing.JButton();
         btnSimpan4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -207,10 +207,11 @@ private void tampilkanDataPeserta() {
             }
         });
 
-        btnSimpan2.setText("Cetak Semua");
-        btnSimpan2.addActionListener(new java.awt.event.ActionListener() {
+        btnCetak.setText("Cetak");
+        btnCetak.setActionCommand("Cetak");
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSimpan2ActionPerformed(evt);
+                btnCetakActionPerformed(evt);
             }
         });
 
@@ -281,7 +282,7 @@ private void tampilkanDataPeserta() {
                                 .addGap(6, 6, 6)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSimpan2))))
+                                .addComponent(btnCetak))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -335,7 +336,7 @@ private void tampilkanDataPeserta() {
                     .addComponent(btnSimpan)
                     .addComponent(jButton2)
                     .addComponent(btnSimpan1)
-                    .addComponent(btnSimpan2)
+                    .addComponent(btnCetak)
                     .addComponent(btnSimpan4))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
@@ -553,40 +554,9 @@ int konfirmasi = JOptionPane.showConfirmDialog(
     }        // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpan1ActionPerformed
 
-    private void btnSimpan2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpan2ActionPerformed
-    // Memastikan tabel memiliki data
-    if (jTable1.getRowCount() == 0) {
-        JOptionPane.showMessageDialog(
-            this,
-            "Tidak ada data peserta yang dapat dicetak!",
-            "Peringatan",
-            JOptionPane.WARNING_MESSAGE
-        );
-        return;
-    }
-
-    try {
-        // Menampilkan dialog pengaturan cetak
-        boolean selesai = jTable1.print();
-
-        if (selesai) {
-            JOptionPane.showMessageDialog(
-                this,
-                "Data peserta berhasil dicetak!",
-                "Sukses",
-                JOptionPane.INFORMATION_MESSAGE
-            );
-        }
-
-    } catch (java.awt.print.PrinterException e) {
-        JOptionPane.showMessageDialog(
-            this,
-            "Gagal mencetak data peserta: " + e.getMessage(),
-            "Error Cetak",
-            JOptionPane.ERROR_MESSAGE
-        );
-    }        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSimpan2ActionPerformed
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
+   report.ReportService.tampilkanLaporanPeserta();      // TODO add your handling code here:
+    }//GEN-LAST:event_btnCetakActionPerformed
 
     private void btnSimpan3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpan3ActionPerformed
         // TODO add your handling code here:
@@ -783,9 +753,9 @@ int konfirmasi = JOptionPane.showConfirmDialog(
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnSimpan1;
-    private javax.swing.JButton btnSimpan2;
     private javax.swing.JButton btnSimpan3;
     private javax.swing.JButton btnSimpan4;
     private javax.swing.JButton jButton2;
